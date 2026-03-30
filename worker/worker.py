@@ -7,6 +7,8 @@ workerSocket.send("WORKER".encode())
 while True:
     text=workerSocket.recv(1024)
     text=text.decode()
+    if not text:
+        break
     if(text=="CONNECTED"):
         continue
     text=text+"-processed"
