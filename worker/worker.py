@@ -7,5 +7,7 @@ workerSocket.send("WORKER".encode())
 while True:
     text=workerSocket.recv(1024)
     text=text.decode()
+    if(text=="CONNECTED"):
+        continue
     text=text+"1"
     workerSocket.send(text.encode())

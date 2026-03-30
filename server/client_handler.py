@@ -4,6 +4,7 @@ def handle_client(connectionSocket,addr):
     message=message.decode()
     if message=="WORKER":
         worker.append(connectionSocket)
+        connectionSocket.send("CONNECTED".encode())
     else:
         message=message+"-processed"
         connectionSocket.send(message.encode())

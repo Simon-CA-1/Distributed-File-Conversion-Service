@@ -1,7 +1,6 @@
 import threading
 from socket import *
 import client_handler
-import worker_handler
 port=5000
 serverSocket=socket(AF_INET,SOCK_STREAM)
 serverSocket.bind(('',port))
