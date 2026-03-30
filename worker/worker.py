@@ -9,5 +9,5 @@ while True:
     text=text.decode()
     if(text=="CONNECTED"):
         continue
-    text=text+"1"
+    text=text+"-processed"
     workerSocket.send(text.encode())

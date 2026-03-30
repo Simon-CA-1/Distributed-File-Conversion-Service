@@ -6,6 +6,13 @@ def handle_client(connectionSocket,addr):
         worker.append(connectionSocket)
         connectionSocket.send("CONNECTED".encode())
     else:
-        message=message+"-processed"
-        connectionSocket.send(message.encode())
-        connectionSocket.close()
+        if worker:
+            w=worker[0]
+            w.send(message.encode())
+            message=w.recv(1024)
+            message=message.decode()
+            connectionSocket.send(message.encode())
+            connectionSocket.close()
+        else:
+            connectionSocket.send("No worker".encode())
+            connectionSocket.close()
