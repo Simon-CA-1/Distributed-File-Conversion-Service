@@ -3,6 +3,7 @@ servername="localhost"
 port=5000
 clientSocket=socket(AF_INET,SOCK_STREAM)
 clientSocket.connect((servername,port))
+print("CLIENT SIDE")
 print("Connected to server")
 message=input("Enter the message: ")
 clientSocket.send(message.encode())
