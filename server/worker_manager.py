@@ -16,3 +16,6 @@ def work_done(workerSocket):
     if workerSocket in busy_workers:
         busy_workers.remove(workerSocket)
         free_workers.append(workerSocket)
+
+def rmove_worker(workerSocket):
+    busy_workers.remove(workerSocket)

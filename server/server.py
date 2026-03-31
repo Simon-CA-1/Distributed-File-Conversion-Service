@@ -20,9 +20,9 @@ def process_jobs():
             continue
         w.send(message.encode())
         result = w.recv(1024)
-        
         if not result:
             connectionSocket.send("WORKER DISCONNECTED".encode())
+            worker_manager.rmove_worker(w)
             connectionSocket.close()
             continue
         worker_manager.work_done(w)
