@@ -3,9 +3,9 @@ from socket import *
 import client_handler
 import scheduler
 import worker_manager
-port=5000
+from config import HOST,PORT
 serverSocket=socket(AF_INET,SOCK_STREAM)
-serverSocket.bind(('',port))
+serverSocket.bind((HOST,PORT))
 serverSocket.listen(3)
 print("SERVER SIDE")
 def process_jobs():

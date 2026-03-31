@@ -1,8 +1,7 @@
 from socket import *
-servername="localhost"
-port=5000
+from config import SERVER_HOST,SERVER_PORT
 clientSocket=socket(AF_INET,SOCK_STREAM)
-clientSocket.connect((servername,port))
+clientSocket.connect((SERVER_HOST,SERVER_PORT))
 print("CLIENT SIDE")
 print("Connected to server")
 message=input("Enter the message: ")

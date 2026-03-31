@@ -1,8 +1,7 @@
 from socket import *
-servername="localhost"
-serverport=5000
+from config import SERVER_HOST,SERVER_PORT
 workerSocket=socket(AF_INET,SOCK_STREAM)
-workerSocket.connect((servername,serverport))
+workerSocket.connect((SERVER_HOST,SERVER_HOST))
 print("WORKER SIDE")
 workerSocket.send("WORKER".encode())
 while True:
