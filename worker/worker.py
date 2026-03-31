@@ -1,3 +1,4 @@
+from converter import convert_file
 from socket import *
 from config import SERVER_HOST,SERVER_PORT
 from file_transfer import receive_file,send_file
@@ -13,4 +14,5 @@ while True:
     if(text=="CONNECTED"):
         continue
     receive_file(workerSocket,"input_file")
-    send_file(workerSocket,"input_file")
+    output_file=convert_file("input_file")
+    send_file(workerSocket,output_file)
