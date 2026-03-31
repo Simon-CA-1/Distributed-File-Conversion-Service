@@ -9,7 +9,7 @@ message=input("Enter the message: ")
 clientSocket.send(message.encode())
 modified_message=clientSocket.recv(1024)
 modified_message=modified_message.decode()
-if modified_message=="No worker":
+if modified_message=="NO WORKER":
     print("No worker available")
 else:
     print("Modified message from server:",modified_message)
