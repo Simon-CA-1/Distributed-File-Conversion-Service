@@ -1,7 +1,8 @@
 from socket import *
 from config import SERVER_HOST,SERVER_PORT
+from file_transfer import receive_file,send_file
 workerSocket=socket(AF_INET,SOCK_STREAM)
-workerSocket.connect((SERVER_HOST,SERVER_HOST))
+workerSocket.connect((SERVER_HOST,SERVER_PORT))
 print("WORKER SIDE")
 workerSocket.send("WORKER".encode())
 while True:
@@ -11,5 +12,5 @@ while True:
         break
     if(text=="CONNECTED"):
         continue
-    text=text+"-processed"
-    workerSocket.send(text.encode())
+    receive_file(workerSocket,"input_file")
+    send_file(workerSocket,"input_file")

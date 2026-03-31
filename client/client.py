@@ -1,15 +1,11 @@
 from socket import *
 from config import SERVER_HOST,SERVER_PORT
+from file_transfer import send_file,receive_file
 clientSocket=socket(AF_INET,SOCK_STREAM)
 clientSocket.connect((SERVER_HOST,SERVER_PORT))
 print("CLIENT SIDE")
 print("Connected to server")
-message=input("Enter the message: ")
-clientSocket.send(message.encode())
-modified_message=clientSocket.recv(1024)
-modified_message=modified_message.decode()
-if modified_message=="NO WORKER":
-    print("No worker available")
-else:
-    print("Modified message from server:",modified_message)
+message=input("Enter the file path: ")
+send_file(clientSocket,message)
+receive_file(clientSocket,"output_file")
 clientSocket.close()

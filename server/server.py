@@ -3,6 +3,7 @@ from socket import *
 import client_handler
 import scheduler
 import worker_manager
+from file_transfer import send_file,receive_file
 from config import HOST,PORT
 serverSocket=socket(AF_INET,SOCK_STREAM)
 serverSocket.bind((HOST,PORT))
@@ -18,21 +19,13 @@ def process_jobs():
         if w is None:
             scheduler.add_job(length,connectionSocket,message)
             continue
-        w.send(message.encode())
-        result = w.recv(1024)
-        if not result:
-            connectionSocket.send("WORKER DISCONNECTED".encode())
-            worker_manager.rmove_worker(w)
-            connectionSocket.close()
-            continue
+        send_file(w,message)
+        receive_file(w,"output_file")
         worker_manager.work_done(w)
-        result = result.decode()
-        connectionSocket.send(result.encode())
+        send_file(connectionSocket,"output_file")
         connectionSocket.close()
 threading.Thread(target=process_jobs, daemon=True).start()
 while True:
     connectionSocket,addr=serverSocket.accept()
     thread=threading.Thread(target=client_handler.handle_client,args=(connectionSocket,addr))
     thread.start()
-    
-    
