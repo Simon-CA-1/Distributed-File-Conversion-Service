@@ -20,9 +20,9 @@ def process_jobs():
             scheduler.add_job(length,connectionSocket,message)
             continue
         send_file(w,message)
-        receive_file(w,"output_file")
+        receive_file(w,"output_file.png")
         worker_manager.work_done(w)
-        send_file(connectionSocket,"output_file")
+        send_file(connectionSocket,"output_file.png")
         connectionSocket.close()
 threading.Thread(target=process_jobs, daemon=True).start()
 while True:

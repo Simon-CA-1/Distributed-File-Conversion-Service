@@ -7,15 +7,17 @@ def add_worker(workerSocket):
 def choose_worker():
     if not free_workers:
         return None
-    else:
-        worker=free_workers.pop(0)
-        busy_workers.append(worker)
-        return worker
+    worker=free_workers.pop(0)
+    busy_workers.append(worker)
+    return worker
 
 def work_done(workerSocket):
     if workerSocket in busy_workers:
         busy_workers.remove(workerSocket)
         free_workers.append(workerSocket)
 
-def rmove_worker(workerSocket):
-    busy_workers.remove(workerSocket)
+def remove_worker(workerSocket):
+    if workerSocket in free_workers:
+        free_workers.remove(workerSocket)
+    if workerSocket in busy_workers:
+        busy_workers.remove(workerSocket)
