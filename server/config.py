@@ -1,0 +1,4 @@
+HOST = ''             
+PORT = 5000
+BUFFER_SIZE = 1024   
+FILE_CHUNK_SIZE = 4096 
