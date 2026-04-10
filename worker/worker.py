@@ -1,4 +1,5 @@
 from converter import convert_file
+import os
 from socket import *
 from config import SERVER_HOST,SERVER_PORT
 from file_transfer import receive_file,send_file
@@ -12,6 +13,13 @@ workerSocket.send("WORKER".encode())
 workerSocket.recv(1024)
 
 while True:
-    receive_file(workerSocket,"input_file.jpg")
-    output_file=convert_file("input_file.jpg")
+    file_name_data=workerSocket.recv(1024)
+    if not file_name_data:
+        break
+    file_name=os.path.basename(file_name_data.decode())
+    if not file_name:
+        file_name="input_file"
+    workerSocket.send("OK".encode())
+    receive_file(workerSocket,file_name)
+    output_file=convert_file(file_name)
     send_file(workerSocket,output_file)

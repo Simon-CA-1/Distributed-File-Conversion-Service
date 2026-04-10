@@ -1,3 +1,5 @@
+import time
+import os
 from socket import *
 from config import SERVER_HOST,SERVER_PORT
 from file_transfer import send_file,receive_file
@@ -9,11 +11,16 @@ print("CLIENT SIDE")
 print("Connected to server")
 
 message=input("Enter the file path: ")
+original_name=os.path.basename(message)
 
 clientSocket.send("CLIENT".encode())
 clientSocket.recv(1024)
+clientSocket.send(original_name.encode())
+clientSocket.recv(1024)
 
+start=time.time()
 send_file(clientSocket,message)
 receive_file(clientSocket,"output_file.png")
-
+end=time.time()
+print("Time Taken:",end-start)
 clientSocket.close()
