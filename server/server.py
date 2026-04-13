@@ -15,14 +15,24 @@ serverSocket.bind((HOST, PORT))
 serverSocket.listen(3)
 print("SERVER SIDE")
 
+def get_output_name(input_path):
+    base,ext=os.path.splitext(input_path)
+    ext=ext.lower()
+    if ext==".jpg":
+        return base+".png"
+    if ext==".csv":
+        return base+".json"
+    return input_path
+
 def handle_job(length,connectionSocket,message,w):
     input_name=os.path.basename(message)
+    output_name=get_output_name(message)
     w.send(input_name.encode())
     w.recv(1024)
     send_file(w,message)
-    receive_file(w,message)
+    receive_file(w,output_name)
     worker_manager.work_done(w)
-    send_file(connectionSocket,message)
+    send_file(connectionSocket,output_name)
     connectionSocket.close()
 
 def process_jobs():
