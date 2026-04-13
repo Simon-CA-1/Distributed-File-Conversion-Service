@@ -10,7 +10,8 @@ def send_file(sock, file_path):
             chunk = f.read(FILE_CHUNK_SIZE)
             if not chunk:
                 break
-            sock.send(chunk)
+            sock.sendall(chunk)
+    sock.recv(1024) 
     print("File sent")
 
 
@@ -25,4 +26,5 @@ def receive_file(sock, output_path):
                 break
             f.write(data)
             received += len(data)
+    sock.send("DONE".encode())  
     print("File received")

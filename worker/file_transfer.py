@@ -12,6 +12,7 @@ def receive_file(sock, output_path):
                 break
             f.write(data)
             received += len(data)
+    sock.send("DONE".encode())  
     print("File received on worker")
 
 def send_file(sock, file_path):
@@ -24,4 +25,5 @@ def send_file(sock, file_path):
             if not chunk:
                 break
             sock.sendall(chunk)
+    sock.recv(1024)  
     print("File sent from worker")
