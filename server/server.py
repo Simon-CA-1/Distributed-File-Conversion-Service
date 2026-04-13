@@ -1,4 +1,5 @@
 import threading
+import ssl
 import os
 from socket import *
 import client_handler
@@ -6,8 +7,11 @@ import scheduler
 import worker_manager
 from file_transfer import send_file,receive_file
 from config import HOST,PORT
-serverSocket=socket(AF_INET,SOCK_STREAM)
-serverSocket.bind((HOST,PORT))
+serverSocket = socket(AF_INET, SOCK_STREAM)
+context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+context.load_cert_chain(certfile="cert.pem", keyfile="key.pem")
+serverSocket = context.wrap_socket(serverSocket, server_side=True)
+serverSocket.bind((HOST, PORT))
 serverSocket.listen(3)
 print("SERVER SIDE")
 

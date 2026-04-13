@@ -1,10 +1,15 @@
 from converter import convert_file
 import os
+import ssl
 from socket import *
 from config import SERVER_HOST,SERVER_PORT
 from file_transfer import receive_file,send_file
 
-workerSocket=socket(AF_INET,SOCK_STREAM)
+workerSocket = socket(AF_INET, SOCK_STREAM)
+context = ssl.create_default_context()
+context.check_hostname = False
+context.verify_mode = ssl.CERT_NONE
+workerSocket = context.wrap_socket(workerSocket, server_hostname=SERVER_HOST)
 workerSocket.connect((SERVER_HOST,SERVER_PORT))
 
 print("WORKER SIDE")

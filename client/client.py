@@ -1,10 +1,15 @@
 import time
 import os
+import ssl
 from socket import *
 from config import SERVER_HOST,SERVER_PORT
 from file_transfer import send_file,receive_file
 
-clientSocket=socket(AF_INET,SOCK_STREAM)
+clientSocket = socket(AF_INET, SOCK_STREAM)
+context = ssl.create_default_context()
+context.check_hostname = False
+context.verify_mode = ssl.CERT_NONE
+clientSocket = context.wrap_socket(clientSocket, server_hostname=SERVER_HOST)
 clientSocket.connect((SERVER_HOST,SERVER_PORT))
 
 print("CLIENT SIDE")
