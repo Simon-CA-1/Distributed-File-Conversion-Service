@@ -16,12 +16,12 @@ def receive_file(sock, output_path):
 
 def send_file(sock, file_path):
     file_size = os.path.getsize(file_path)
-    sock.send(str(file_size).encode())
+    sock.sendall(str(file_size).encode())
     sock.recv(1024)
     with open(file_path, "rb") as f:
         while True:
             chunk = f.read(FILE_CHUNK_SIZE)
             if not chunk:
                 break
-            sock.send(chunk)
+            sock.sendall(chunk)
     print("File sent from worker")

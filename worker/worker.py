@@ -27,4 +27,6 @@ while True:
     workerSocket.send("OK".encode())
     receive_file(workerSocket,file_name)
     output_file=convert_file(file_name)
+    if not output_file or not os.path.exists(output_file):
+        output_file=file_name
     send_file(workerSocket,output_file)
