@@ -16,9 +16,9 @@ def handle_job(length,connectionSocket,message,w):
     w.send(input_name.encode())
     w.recv(1024)
     send_file(w,message)
-    receive_file(w,"output_file.png")
+    receive_file(w,message)
     worker_manager.work_done(w)
-    send_file(connectionSocket,"output_file.png")
+    send_file(connectionSocket,message)
     connectionSocket.close()
 
 def process_jobs():

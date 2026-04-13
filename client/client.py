@@ -20,7 +20,7 @@ clientSocket.recv(1024)
 
 start=time.time()
 send_file(clientSocket,message)
-receive_file(clientSocket,"output_file.png")
+receive_file(clientSocket,original_name)
 end=time.time()
 print("Time Taken:",end-start)
 clientSocket.close()
